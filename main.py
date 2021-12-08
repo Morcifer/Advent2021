@@ -3,6 +3,9 @@ from src.day2_commands import calculate_final_location, day2_parser
 from src.day3_binary import day3_parser, calculate_gamma_and_epsilon, calculate_oxygen_and_scrubber
 from src.day4_bingo import load_bingo_data, find_winning_board, find_losing_board
 from src.day5_lines import day5_parser, calculate_final_grid
+from src.day6_FIESH import day6_parser, simulate_fish, simulate_fish_better
+from src.day7_crabs import day7_parser, find_best_location_and_fuel
+from src.day8_digits import day8_parser, count_digits_in_output, get_number
 from src.utilities import load_data
 
 
@@ -57,10 +60,47 @@ def day5_1() -> int:
     final_grid = calculate_final_grid(lines, filter_diagonal=True)
     return final_grid.get_high_risk_count()
 
+
 def day5_2() -> int:
     lines = load_data(5, day5_parser, "data")
     final_grid = calculate_final_grid(lines, filter_diagonal=False)
     return final_grid.get_high_risk_count()
+
+
+def day6_1() -> int:
+    fish = load_data(6, day6_parser, "data")[0]
+    fish = simulate_fish_better(fish, time=80)
+    return fish
+
+
+def day6_2() -> int:
+    fish = load_data(6, day6_parser, "data")[0]
+    fish = simulate_fish_better(fish, time=256)
+    return fish
+
+
+def day7_1() -> int:
+    positions = load_data(7, day7_parser, "data")[0]
+    location, fuel = find_best_location_and_fuel(positions, linear=True)
+    return fuel
+
+
+def day7_2() -> int:
+    positions = load_data(7, day7_parser, "data")[0]
+    location, fuel = find_best_location_and_fuel(positions, linear=False)
+    return fuel
+
+
+def day8_1() -> int:
+    data = load_data(8, day8_parser, "data")
+    number_of_digits = count_digits_in_output(data)
+    return number_of_digits
+
+
+def day8_2() -> int:
+    data = load_data(8, day8_parser, "data")
+    numbers = [get_number(datum) for datum in data]
+    return sum(numbers)
 
 
 if __name__ == '__main__':
@@ -73,6 +113,10 @@ if __name__ == '__main__':
     print(f"Day 4 result 1: {day4_1()}")
     print(f"Day 4 result 2: {day4_2()}")
     print(f"Day 5 result 1: {day5_1()}")
-    print(f"Day 5 result 1: {day5_2()}")
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(f"Day 5 result 2: {day5_2()}")
+    print(f"Day 6 result 1: {day6_1()}")
+    print(f"Day 6 result 2: {day6_2()}")
+    print(f"Day 7 result 1: {day7_1()}")
+    print(f"Day 7 result 2: {day7_2()}")
+    print(f"Day 8 result 1: {day8_1()}")
+    print(f"Day 8 result 2: {day8_2()}")
