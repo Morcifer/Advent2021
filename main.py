@@ -1,3 +1,9 @@
+from functools import reduce
+from statistics import median
+
+from src.day10_paranthesis import day10_parser, find_all_corrupted_scores, find_all_autocorrect_scores
+from src.day11_flashes import day11_parser, simulate_all_steps_of_map, find_first_simultaneous_flash
+from src.day12_graph import day12_parser, find_all_paths
 from src.day1_calculators import count_increases, rolling_horizon, day1_parser
 from src.day2_commands import calculate_final_location, day2_parser
 from src.day3_binary import day3_parser, calculate_gamma_and_epsilon, calculate_oxygen_and_scrubber
@@ -6,6 +12,7 @@ from src.day5_lines import day5_parser, calculate_final_grid
 from src.day6_FIESH import day6_parser, simulate_fish, simulate_fish_better
 from src.day7_crabs import day7_parser, find_best_location_and_fuel
 from src.day8_digits import day8_parser, count_digits_in_output, get_number
+from src.day9_lava import day9_parser, find_high_spots, find_basins_values
 from src.utilities import load_data
 
 
@@ -103,6 +110,55 @@ def day8_2() -> int:
     return sum(numbers)
 
 
+def day9_1() -> int:
+    heights = load_data(9, day9_parser, "data")
+    high_spots, high_spots_values = find_high_spots(heights)
+    return sum(high_spots_values) + len(high_spots_values)
+
+
+def day9_2() -> int:
+    heights = load_data(9, day9_parser, "data")
+    basins_values = find_basins_values(heights)
+    basins_values = sorted(basins_values)
+    return reduce((lambda x, y: x * y), basins_values[-3:])
+
+
+def day10_1() -> int:
+    data = load_data(10, day10_parser, "data")
+    scores = find_all_corrupted_scores(data)
+    return sum(scores)
+
+
+def day10_2() -> int:
+    data = load_data(10, day10_parser, "data")
+    scores = find_all_autocorrect_scores(data)
+    return median([s for s in scores if s != -1])
+
+
+def day11_1() -> int:
+    data = load_data(11, day11_parser, "data")
+    flashes = simulate_all_steps_of_map(data)
+    return flashes
+
+
+def day11_2() -> int:
+    data = load_data(11, day11_parser, "data")
+    step = find_first_simultaneous_flash(data)
+    return step
+
+
+def day12_1() -> int:
+    edges = load_data(12, day12_parser, "data")
+    paths = find_all_paths(edges, once_at_most=True)
+    return len(paths)
+
+
+def day12_2() -> int:
+    edges = load_data(12, day12_parser, "data")
+    paths = find_all_paths(edges, once_at_most=False)
+    return len(paths)
+
+
 if __name__ == '__main__':
     print(f"Day 1 result 1: {day1_1()}")
     print(f"Day 1 result 2: {day1_2()}")
@@ -120,3 +176,11 @@ if __name__ == '__main__':
     print(f"Day 7 result 2: {day7_2()}")
     print(f"Day 8 result 1: {day8_1()}")
     print(f"Day 8 result 2: {day8_2()}")
+    print(f"Day 9 result 1: {day9_1()}")
+    print(f"Day 9 result 2: {day9_2()}")
+    print(f"Day 10 result 1: {day10_1()}")
+    print(f"Day 10 result 2: {day10_2()}")
+    print(f"Day 11 result 1: {day11_1()}")
+    print(f"Day 11 result 2: {day11_2()}")
+    print(f"Day 12 result 1: {day12_1()}")
+    # print(f"Day 12 result 2: {day12_2()}")  # Run-time too long because I'm lazy

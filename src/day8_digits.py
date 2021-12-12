@@ -1,4 +1,4 @@
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 
 
 def day8_parser(s: List[str]) -> (List[str], List[str]):
