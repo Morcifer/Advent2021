@@ -13,6 +13,10 @@ from src.day18_snails import day18_parser, add_all, calculate_score
 from src.day19_beacons import day19_parser, split_data_to_scanners_and_beacons, normalize_beacons
 from src.day1_calculators import count_increases, rolling_horizon, day1_parser
 from src.day20_image import day20_parser, enhance, split_data, count_lights, print_image
+from src.day21_die import get_final_score_deterministic, get_final_score_dirac
+from src.day22_cubed import day22_parser, reboot, reboot_all
+from src.day24_assembly import day24_parser, find_highest_model_number
+from src.day25_cucumbers import day25_parser, simulate_cucumbers
 from src.day2_commands import calculate_final_location, day2_parser
 from src.day3_binary import day3_parser, calculate_gamma_and_epsilon, calculate_oxygen_and_scrubber
 from src.day4_bingo import load_bingo_data, find_winning_board, find_losing_board
@@ -209,8 +213,9 @@ def day15_2() -> int:
 
 def day16_1() -> int:
     data = load_data(16, day16_parser, "data")[0]
+    data = data[:-4]  # Manual Cheat
     result = []
-    parse(data, result)
+    parse(data, False, result)
     return sum(result)
 
 
@@ -281,6 +286,40 @@ def day20_1() -> int:
     return count_lights(cheat)
 
 
+def day21_1() -> int:
+    result = get_final_score_deterministic()
+    return result
+
+
+def day21_2() -> int:
+    result = get_final_score_dirac()
+    return result
+
+
+def day22_1() -> int:
+    steps = load_data(22, day22_parser, "data")
+    result = reboot(steps)
+    return result
+
+
+def day22_2() -> int:
+    steps = load_data(22, day22_parser, "data")
+    result = reboot_all(steps)
+    return result
+
+
+def day24_1() -> int:
+    instructions = load_data(24, day24_parser, "data")
+    result = find_highest_model_number(instructions)
+    return result
+
+
+def day25_1() -> int:
+    cucumbers = load_data(25, day25_parser, "data")
+    result = simulate_cucumbers(cucumbers)
+    return result
+
+
 if __name__ == '__main__':
     # print(f"Day 1 result 1: {day1_1()}")
     # print(f"Day 1 result 2: {day1_2()}")
@@ -312,14 +351,19 @@ if __name__ == '__main__':
     # print(f"Day 14 result 2: {day14_2()}")
     # print(f"Day 15 result 1: {day15_1()}")
     # print(f"Day 15 result 2: {day15_2()}")  # No A*, no quick run time
-    # print(f"Day 16 result 1: {day16_1()}")  # CHEAT
+    # print(f"Day 16 result 1: {day16_1()}")
     # print(f"Day 16 result 2: {day16_2()}")  # CHEAT
     # print(f"Day 17 result 1: {day17_1()}")
     # print(f"Day 17 result 2: {day17_2()}")
-    print(f"Day 18 result 1: {day18_1()}")
-    print(f"Day 18 result 2: {day18_2()}")  # SKIP
+    # print(f"Day 18 result 1: {day18_1()}")
+    # print(f"Day 18 result 2: {day18_2()}")
     # print(f"Day 19 result 1, 2: {day19()}")
     # print(f"Day 20 result 1: {day20_1()}")
     # print(f"Day 20 result 2: {day20_2()}")
-
-
+    # print(f"Day 21 result 1: {day21_1()}")
+    # print(f"Day 21 result 2: {day21_2()}")
+    # print(f"Day 22 result 1: {day22_1()}")
+    # print(f"Day 22 result 2: {day22_2()}")
+    print(f"Day 24 result 1: {day24_1()}")
+    # print(f"Day 24 result 2: {day24_2()}")
+    # print(f"Day 25 result 1: {day25_1()}")
